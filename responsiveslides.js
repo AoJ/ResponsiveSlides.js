@@ -5,7 +5,6 @@
     var settings = {
       'speed' : 4000,
       'fade' : 1000,
-      'auto' : true,
       'maxwidth' : 'none',
       'namespace' : 'rs'
     };
@@ -66,45 +65,6 @@
             }).end().appendTo($this);
           }, parseFloat(settings.speed));
 
-        // Auto: false
-        } else {
-          tabMarkup = '';
-
-          $slide.each(function (i) {
-            var n = i + 1;
-            tabMarkup += [
-              '<li>',
-              '<a href="#' + slideClassPrefix + n + '"',
-              'class="' + slideClassPrefix + n + '">' + n + '</a>',
-              '</li>'
-            ].join('');
-          });
-          $pagination.append(tabMarkup);
-
-          $this.after($pagination).find(':first-child').addClass(visibleClass);
-          $('.' + slideClassPrefix + '1').parent().addClass(activeClass);
-
-          $('.' + tabsClass + ' a').each(function (i) {
-            var $el = $(this);
-
-            $el.click(function (e) {
-              e.preventDefault();
-              // Prevent clicking if animated
-              if ($('.' + visibleClass + ':animated').length) {
-                return false;
-              }
-              if (!($el.parent().hasClass(activeClass))) {
-                $('.' + tabsClass + ' li').removeClass(activeClass);
-                $('.' + visibleClass).stop().fadeOut(fadetime, function () {
-                  $(this).removeClass(visibleClass).css(hidden);
-                }).end();
-                $('#' + slideClassPrefix + i).stop().fadeIn(fadetime, function () {
-                  $(this).addClass(visibleClass).css(visible);
-                }).end();
-                $el.parent().addClass(activeClass);
-              }
-            });
-          });
         }
       };
 
